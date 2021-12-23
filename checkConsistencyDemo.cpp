@@ -156,4 +156,51 @@ bool checkDemo(string file)
    return (errors.size()==0);
 }
 
+void correctDemo(string file, Ui::MainWindow* ui)
+{
+    ifstream correction(file);
+    int idx=0;
+    int count;
+    line = 0;
+
+    while (!correction.eof())
+    {
+        getline(correction, s);
+        line++;
+
+        count = 0;
+        while(idx<(int)errors.size() && lineNum[idx]==line)
+        {
+            count++;
+            ui->Errors->appendPlainText(QString::fromStdString(errors[idx]));
+            tag = errors[idx].substr( errors[idx].find('<') );
+
+            if(errors[idx].find("opening") != -1){ // missing opening tag
+                if(errors[idx].find("text") != -1){
+                    if(s[s.find_first_not_of(" \t")] == '<'){
+                        if(count==1) ui->Display_output->appendPlainText(QString::fromStdString(s));
+                        ui->Display_output->appendPlainText(QString::fromStdString(tag));
+                    }
+                    else{
+                        ui->Display_output->appendPlainText(QString::fromStdString(tag));
+                        if(count==1) ui->Display_output->appendPlainText(QString::fromStdString(s));
+                    }
+                }
+                else; // delete closing tag
+            }
+            else{ // missing closing tag
+                if(count==1) ui->Display_output->appendPlainText(QString::fromStdString(s));
+                ui->Display_output->appendPlainText(QString::fromStdString(tag));
+            }
+            idx++;
+        }
+
+        if(count==0)
+            ui->Display_output->appendPlainText(QString::fromStdString(s));
+    }
+
+    correction.close();
+}
+
+
 #endif
