@@ -107,3 +107,79 @@ void buildXMLtree(string inputfile){
     }
 }
 
+//without indentation
+void convert2JSON(node* n) {
+
+    node* travptr = n;
+
+    if (travptr->parent == nullptr){
+        unindentedjson << '{' << endl;
+    }
+    if (!sameprevsibling) {
+        unindentedjson << '"' << travptr->name << "\": ";
+    }
+
+    else {
+        if (travptr->child != 0) {
+            unindentedjson << ',' << endl;
+        }
+    }
+
+    if (travptr->parent != nullptr && travptr->parent->child > 1 && !sameprevsibling) {
+        if (travptr->parent->children[1]->name == travptr->parent->children[0]->name) {
+            unindentedjson << '[' << endl;
+        }
+    }
+
+    if (travptr->child > 0)
+    {
+        unindentedjson << '{' << endl;
+        sameprevsibling = false;
+    }
+    else {
+        unindentedjson << '"' << travptr->txt << '"';
+        if (travptr->parent != nullptr && travptr->parent->child == 1) {
+            unindentedjson << endl;
+        }
+        else if (travptr->parent != nullptr && childNumber == travptr->parent->child - 1) {
+            unindentedjson << endl << ']' << endl;
+            sameprevsibling = false;
+        }
+        else {
+            unindentedjson << ',' << endl;
+        }
+    }
+
+    for (int i = 0; i < travptr->child; i++)
+    {
+        travptr = travptr->children[i];
+        if (i > 0 && travptr->name == travptr->parent->children[i - 1]->name) sameprevsibling = true;
+        childNumber = i;
+        convert2JSON(travptr);
+        travptr = n;
+    }
+
+    if (travptr->child != 0)
+    {
+        unindentedjson << '}' << endl;
+    }
+
+    if (travptr->name == "post" || travptr->name == "follower" || travptr->name == "user")
+    {
+        if (travptr == travptr->parent->lastChild && travptr->parent->child > 1)
+        {
+            unindentedjson << ']' << endl;
+        }
+    }
+    if (travptr->name == "posts" && travptr != travptr->parent->lastChild)
+    {
+        unindentedjson << "," << endl;
+    }
+
+    if (travptr->name == "users")
+    {
+        unindentedjson << "}" << endl;
+    }
+
+
+}
