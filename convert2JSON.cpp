@@ -183,3 +183,56 @@ void convert2JSON(node* n) {
 
 
 }
+
+void prettifyJson(ifstream& f,Ui::MainWindow* ui) {
+
+    vector<string> lines;
+    string s;
+
+    while (getline(f, s)) {
+        auto pos = s.find_first_not_of(" \t");
+        if (pos != string::npos) s.erase(s.begin(), s.begin() + pos);
+        lines.push_back(s);
+    }
+
+    int tabs = 0;
+    QString qstr;
+
+    for (int i = 0; i < lines.size(); i++) {
+
+        if (lines[i][0] == ']' || lines[i][0] == '}') {
+            tabs--;
+
+            for (int i = 0; i < tabs; i++){
+                ui->Display_output->insertPlainText("    ");
+            }
+            qstr = QString::fromStdString(lines[i]);
+            ui->Display_output->insertPlainText(qstr);
+
+            if (i + 1 != lines.size()) {
+                if (lines[i][0] == '}') {
+                    if (lines[i + 1][0] == ',') {
+                        ui->Display_output->insertPlainText(",");
+                        i++;
+                    }
+                }
+            }
+
+            ui->Display_output->insertPlainText("\n");
+            continue;
+        }
+
+        for (int i = 0; i < tabs; i++){
+            ui->Display_output->insertPlainText("    ");
+        }
+        qstr = QString::fromStdString(lines[i]);
+        ui->Display_output->insertPlainText(qstr);
+        ui->Display_output->insertPlainText("\n");
+
+        if (lines[i][0] == '{' || lines[i][0] == '[' || lines[i][lines[i].length() - 1] == '{' || lines[i][lines[i].length() - 1] == '[')
+            tabs++;
+
+        if (lines[i][lines[i].length() - 1] == '}' || lines[i][lines[i].length() - 1] == ']')
+            tabs--;
+    }
+}
