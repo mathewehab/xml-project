@@ -31,6 +31,8 @@ private slots:
 
     void on_pushButton_json_clicked();
 
+    void on_pushButton_Graph_clicked();
+    
 private:
     Ui::MainWindow *ui;
 };
