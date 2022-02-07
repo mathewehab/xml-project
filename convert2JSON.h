@@ -1,5 +1,4 @@
 #include"functions.h"
-#define MAX 10
 
 bool leaf;
 bool sameprevsibling = false;
