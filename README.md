@@ -5,14 +5,12 @@ Extensible Markup Language (XML) is a markup language that defines a set of rule
 
 In our Project, we are implementing an XML Editor that can do the following:
 
-•	Check the XML consistency and Fixing errors
+-	Check the XML consistency and Fixing errors
+-	Format (Prettify) the XML file
+-	Convert XML to JSON
+- Minify the XML file
+- Compress & Decompress the data in the XML/JSON file
+- Representing the users data using the Graph data structure
+- GUI
 
-•	Format (Prettify) the XML file
-
-•	Convert XML to JSON
-
-•	Minify the XML file
-
-•	Compress & Decompress the data in the XML/JSON file
-
-•	GUI
+### * We used *Graphviz* library to visualize the graph on the GUI.
