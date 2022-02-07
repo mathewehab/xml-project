@@ -4,6 +4,9 @@
 #include <QFileDialog>
 #include <sstream>
 #include <bitset>
+#include "gvc.h"
+#include "cdt.h"
+#include "cgraph.h"
 #include "functions.h"
 
 string filepath;
@@ -190,3 +193,53 @@ void MainWindow::on_pushButton_json_clicked()
     ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
 }
 
+void MainWindow::on_pushButton_Graph_clicked()
+{
+    int real_user_count=toGraph(filepath);
+
+    // convert adjacency matrix to dot language to pass to graphviz functions
+    string str="digraph main{";
+    for (int i = 0; i < real_user_count; i++)
+     {
+         str=str+"node[shape =oval label=\""+to_string(i+1)+"\"]id"+to_string(i+1) +' ';
+     }
+
+    for (int i = 0; i <real_user_count; i++)
+     {
+
+         for (int j = 0; j < real_user_count; j++)
+         {
+             if(Dgraph[i][j]==1){
+                 str=str+"id"+to_string(i+1)+"->"+"id"+to_string(j+1)+" ";
+             }
+         }
+
+     }
+
+    str.append("}");
+    Agraph_t* G;
+    GVC_t* gvc;
+    gvc = gvContext();
+
+    string dotLang=str;
+    char * y= &dotLang[0];
+
+    G = agmemread(y);
+    gvLayout (gvc, G, "dot");
+
+    //saving generated graph image
+    string pic_path="graph.png";
+    const char *c = pic_path.c_str();
+
+    gvRenderFilename(gvc,G,"png",c);
+    gvFreeLayout(gvc, G); /* library function */
+    agclose(G); /* library function */
+    gvFreeContext(gvc);
+
+    // to display graph image on QT
+    QPixmap pix(c);
+    ui->label_pic->setPixmap(pix);
+    ui->label_pic->setScaledContents(true);
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
+
+}
