@@ -1,5 +1,4 @@
 #include "functions.h"
-#define MAX 15
 #ifdef CODE1
 
 class node;
