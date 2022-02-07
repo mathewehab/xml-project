@@ -39,7 +39,7 @@ void MainWindow::on_pushButton_browse_clicked()
     QTextStream in(&file);
     QString text = in.readAll();
     ui->Display_inputfile->setPlainText(text);
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-3);
     file.close();
 }
 
@@ -66,7 +66,7 @@ void MainWindow::on_pushButton_minify_clicked()
         return;
     }
     minify(filepath,ui);
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
 }
 
 
@@ -93,7 +93,7 @@ void MainWindow::on_pushButton_check_clicked()
 #endif
 
         }
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-3);
 }
 
 
@@ -125,7 +125,7 @@ void MainWindow::on_pushButton_compress_clicked()
          QChar qchar=QChar(parsed);
          ui->Display_output->insertPlainText(qchar);
     }
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
     compressedfile.close();
     compressedfile.clear();
 }
@@ -156,7 +156,7 @@ void MainWindow::on_pushButton_decompress_clicked()
                 Decompress(root,decompressedfile,ui);
             }
         }
-     ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
+     ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
      decompressedfile.close();
      remove("compressedfile.txt");
 
@@ -171,7 +171,7 @@ void MainWindow::on_pushButton_format_clicked()
         return;
     }
     prettify(filepath,ui);
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
 
 }
 
@@ -190,7 +190,7 @@ void MainWindow::on_pushButton_json_clicked()
     prettifyJson(file,ui);
     file.close();
     remove("unindentedjson.txt");
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-1);
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count()-2);
 }
 
 void MainWindow::on_pushButton_Graph_clicked()
