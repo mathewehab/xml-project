@@ -100,6 +100,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton_Graph">
+            <property name="text">
+             <string>Graph of Users</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="verticalSpacer_5">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -316,6 +323,20 @@
             <string>save</string>
            </property>
           </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Display Graph</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="label_pic">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
          </widget>
         </item>
        </layout>
