@@ -14,6 +14,7 @@
 
 #define EMPTY_STRING ""
 #define CODE1
+#define MAX 10
 using namespace std;
 
 class node;
@@ -40,7 +41,7 @@ extern unordered_map<char, string> huffmanCode;
 extern unordered_map<char, int> freq;
 extern ofstream unindentedjson;
 extern tree* xml;
-
+extern vector<vector<int>> Dgraph;
 // Comparison object to be used to order the heap
 struct comp
 {
@@ -67,5 +68,6 @@ void buildXMLtree(string);
 void convert2JSON(node*);
 void prettifyJson(ifstream&,Ui::MainWindow*);
 bool isLeaf(Node*);
+int toGraph(string);
 
 #endif /* FUNCTIONS_H_ */
