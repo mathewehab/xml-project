@@ -14,3 +14,4 @@ In our Project, we are implementing an XML Editor that can do the following:
 - GUI
 
 ### * We used *Graphviz* library to visualize the graph on the GUI.
+### * We used *Qt Creator* to implement the GUI.
